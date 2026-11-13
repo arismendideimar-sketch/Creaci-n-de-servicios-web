@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba de Servicios Web - GA7-EV01</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f9; }
+        .card { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input, button { padding: 10px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+        button { background: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        pre { background: #eee; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>Servicios Web</h2>
+    <div class="card">
+        <h3>Registro de Usuario</h3>
+        <input type="text" id="regUsuario" placeholder="Ingrese nuevo usuario">
+        <input type="password" id="regPassword" placeholder="Ingrese contrasena">
+        <button onclick="registrar()">Registrarse</button>
+    </div>
+    <div class="card">
+        <h3>Inicio de Sesion (Login)</h3>
+        <input type="text" id="logUsuario" placeholder="Usuario">
+        <input type="password" id="logPassword" placeholder="Contrasena">
+        <button onclick="login()">Iniciar Sesion</button>
+    </div>
+    <div class="card">
+        <h3>Respuesta del Servidor:</h3>
+        <pre id="resultado">Esperando accion...</pre>
+    </div>
+    <script>
+        async function registrar() {
+            const usuario = document.getElementById('regUsuario').value;
+            const password = document.getElementById('regPassword').value;
+            const response = await fetch('backend/registro.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario, password })
+            });
+            const data = await response.json();
+            document.getElementById('resultado').innerText = JSON.stringify(data, null, 2);
+        }
+        async function login() {
+            const usuario = document.getElementById('logUsuario').value;
+            const password = document.getElementById('logPassword').value;
+            const response = await fetch('backend/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario, password })
+            });
+            const data = await response.json();
+            document.getElementById('resultado').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>

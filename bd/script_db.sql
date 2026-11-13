@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS api_autenticacion CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE api_autenticacion;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
